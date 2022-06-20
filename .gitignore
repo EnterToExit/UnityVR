@@ -58,6 +58,8 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-VR Test/.idea/
 VR Test/Library/
 VR Test/Temp/
+VR Test/.idea/
+VR Test/Logs/
+VR Test/UserSettings/
