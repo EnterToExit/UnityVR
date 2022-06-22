@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using Unity.PlasticSCM.Editor.WebApi;
+using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class RangeEnemyAi : MonoBehaviour
 {
     public NavMeshAgent agent;
     public Transform player;
+    public string enemyPlayer;
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
 
@@ -22,9 +26,13 @@ public class RangeEnemyAi : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    //bullet
+    public float shootForce, upwardForce;
+    public Transform bulletSpawnPoint;
+
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+        player = GameObject.Find(enemyPlayer).transform;
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -80,13 +88,14 @@ public class RangeEnemyAi : MonoBehaviour
         transform.LookAt(player);
 
         if (_alreadyAttacked) return;
-        var rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-        rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+        var currentBullet = Instantiate(projectile, bulletSpawnPoint.position, Quaternion.identity).GetComponent<Rigidbody>();
+        currentBullet.AddForce(bulletSpawnPoint.forward * shootForce, ForceMode.Impulse);
+        currentBullet.AddForce(bulletSpawnPoint.up * upwardForce, ForceMode.Impulse);
 
         _alreadyAttacked = true;
         Invoke(nameof(ResetAttack), timeBetweenAttacks);
     }
+
 
     private void ResetAttack()
     {
