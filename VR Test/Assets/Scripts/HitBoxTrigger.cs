@@ -12,7 +12,6 @@ public class HitBoxTrigger : MonoBehaviour
     {
         if (other.CompareTag("Bullet"))
         {
-            Debug.Log("_health.TakeDamage(_damage);");
             _health.TakeDamage(_damage);
         }
     }

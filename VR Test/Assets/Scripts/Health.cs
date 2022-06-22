@@ -9,16 +9,14 @@ public class Health : MonoBehaviour
     [SerializeField] private float _maxHealth;
     private float _currentHealth;
 
-    void Start()
+    private void Start()
     {
         _currentHealth = _maxHealth;
-        Debug.Log("_currentHealth = _maxHealth;");
     }
 
     public void TakeDamage(float damage)
     {
         _currentHealth -= damage;
-        Debug.Log("Take v rot");
         Changed?.Invoke(_currentHealth);
     }
 }

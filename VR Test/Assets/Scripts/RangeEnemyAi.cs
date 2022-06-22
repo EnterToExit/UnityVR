@@ -47,7 +47,7 @@ public class RangeEnemyAi : MonoBehaviour
         var sightRangeDist = Vector3.Distance(agentPosition, playerPosition);
         var attackRangeDist = Vector3.Distance(agentPosition, playerPosition);
 
-        if (!(sightRangeDist < sightRange) && !(attackRangeDist < attackRange)) Patroling();
+        if (!(sightRangeDist < sightRange) && !(attackRangeDist < attackRange)) Patroling(); //TODO agentPosition fix
         if (sightRangeDist < sightRange && !(attackRangeDist < attackRange)) ChasePlayer();
         if (sightRangeDist < sightRange && attackRangeDist < attackRange) AttackPlayer();
     }
