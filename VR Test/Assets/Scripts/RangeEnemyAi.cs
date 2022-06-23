@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class RangeEnemyAi : MonoBehaviour
@@ -7,14 +8,9 @@ public class RangeEnemyAi : MonoBehaviour
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private string _agentTarget;
     [SerializeField] private LayerMask _whatIsGround;
-    [SerializeField] private GameObject _projectile;
-    [SerializeField] private Transform _bulletSpawnPoint;
     [SerializeField] private float _walkPointRange;
-    [SerializeField] private float _timeBetweenAttacks;
     [SerializeField] private float _sightRange;
-    [SerializeField] private float _attackRange;
-    [SerializeField] private float _shootForce;
-    [SerializeField] private float _upwardForce;
+    [SerializeField] private float _requiredRange;
     private Transform _player;
     private Vector3 _walkPoint;
     private bool _alreadyAttacked;
@@ -33,13 +29,17 @@ public class RangeEnemyAi : MonoBehaviour
         var playerPosition = _player.position;
         var distance = Vector3.Distance(agentPosition, playerPosition);
 
-        if (distance > _sightRange && distance > _attackRange) Patroling();
-        if (distance < _sightRange && distance > _attackRange) ChasePlayer();
-        if (distance < _sightRange && distance < _attackRange) AttackPlayer();
+        if (distance > _sightRange && distance > _requiredRange) Patroling();
+        if (distance < _sightRange && distance > _requiredRange) ChasePlayer();
+        if (distance < _sightRange && distance < _requiredRange)
+        {
+            _agent.SetDestination(agentPosition);
+        }
     }
 
     private void Patroling()
     {
+        _agent.speed = 2f;
         if (!_walkPointSet) SearchWalkPoint();
         if (_walkPointSet)
             _agent.SetDestination(_walkPoint);
@@ -52,25 +52,7 @@ public class RangeEnemyAi : MonoBehaviour
     private void ChasePlayer()
     {
         _agent.SetDestination(_player.position);
-    }
-
-    private void AttackPlayer()
-    {
-        //Make sure enemy doesn't move
-        _agent.SetDestination(transform.position);
-        transform.LookAt(_player);
-        if (_alreadyAttacked) return;
-        var currentBullet = Instantiate(_projectile, _bulletSpawnPoint.position,
-            Quaternion.identity).GetComponent<Rigidbody>();
-        currentBullet.AddForce(_bulletSpawnPoint.forward * _shootForce, ForceMode.Impulse);
-        currentBullet.AddForce(_bulletSpawnPoint.up * _upwardForce, ForceMode.Impulse);
-        _alreadyAttacked = true;
-        Invoke(nameof(ResetAttack), _timeBetweenAttacks);
-    }
-
-    private void ResetAttack()
-    {
-        _alreadyAttacked = false;
+        _agent.speed = 3.5f;
     }
 
     private void SearchWalkPoint()
@@ -87,7 +69,7 @@ public class RangeEnemyAi : MonoBehaviour
     {
         Gizmos.color = Color.red;
         var position = transform.position;
-        Gizmos.DrawWireSphere(position, _attackRange);
+        Gizmos.DrawWireSphere(position, _requiredRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(position, _sightRange);
     }

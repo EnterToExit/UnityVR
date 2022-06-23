@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
-
 [RequireComponent(typeof(Health))]
+
 public class CharacterDeath : MonoBehaviour
 {
     [SerializeField] private Health _health;
