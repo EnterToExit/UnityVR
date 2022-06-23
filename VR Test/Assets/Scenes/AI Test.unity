@@ -180,7 +180,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &137441909
 GameObject:
@@ -521,9 +521,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4fb1b1e143d7d0458c964d755e0bc40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xPos: 0
-  zPos: 0
-  characterPos: {fileID: 0}
 --- !u!114 &593197373 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8903437326714134726, guid: 5d97f0d1ca52ee442818adac0cb684fd, type: 3}
@@ -820,6 +817,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7334646299627320601, guid: 99d7fb3f048457f49b047079d28f7272, type: 3}
+      propertyPath: _projectile
+      value: 
+      objectReference: {fileID: 6859549490387425836, guid: 4e9efac44c7c182439ec0ebee39b7666, type: 3}
+    - target: {fileID: 7334646299627320601, guid: 99d7fb3f048457f49b047079d28f7272, type: 3}
+      propertyPath: _shootForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334646299627320601, guid: 99d7fb3f048457f49b047079d28f7272, type: 3}
+      propertyPath: _sightRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334646299627320601, guid: 99d7fb3f048457f49b047079d28f7272, type: 3}
+      propertyPath: _attackRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334646299627320601, guid: 99d7fb3f048457f49b047079d28f7272, type: 3}
+      propertyPath: _upwardForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334646299627320601, guid: 99d7fb3f048457f49b047079d28f7272, type: 3}
+      propertyPath: _walkPointRange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334646299627320601, guid: 99d7fb3f048457f49b047079d28f7272, type: 3}
+      propertyPath: _bulletSpawnPoint
+      value: 
+      objectReference: {fileID: 1355077543}
+    - target: {fileID: 7334646299627320601, guid: 99d7fb3f048457f49b047079d28f7272, type: 3}
+      propertyPath: _timeBetweenAttacks
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7334646299627320672, guid: 99d7fb3f048457f49b047079d28f7272, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -923,7 +952,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6598815579406187027, guid: 9f5a24a380916d14db9775daab4fe333, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187027, guid: 9f5a24a380916d14db9775daab4fe333, type: 3}
       propertyPath: m_LocalPosition.x
@@ -971,6 +1000,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f5a24a380916d14db9775daab4fe333, type: 3}
+--- !u!4 &1355077543 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7334646299108444457, guid: 99d7fb3f048457f49b047079d28f7272, type: 3}
+  m_PrefabInstance: {fileID: 867635914}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1723596432
 GameObject:
   m_ObjectHideFlags: 0

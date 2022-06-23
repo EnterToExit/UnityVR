@@ -1,11 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Health))]
 public class CharacterDeath : MonoBehaviour
 {
     [SerializeField] private Health _health;
+
     private void Awake()
     {
         _health = GetComponent<Health>();
