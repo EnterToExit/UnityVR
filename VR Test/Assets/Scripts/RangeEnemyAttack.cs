@@ -1,60 +1,57 @@
-using System;
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class RangeEnemyAttack : MonoBehaviour
 {
     [SerializeField] private GameObject _projectile;
     [SerializeField] private Transform _bulletSpawnPoint;
-    [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private string _agentTarget;
-    [SerializeField] private float _attackRange;
     [SerializeField] private float _shootForce;
-    [SerializeField] private float _upwardForce;
-    private bool _alreadyAttacked;
-    private bool _enableAttack;
+    private bool _attackAllowed;
     private Animator _animator;
     private Transform _player;
+    private static readonly int Attack = Animator.StringToHash("attack");
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        _agent = GetComponent<NavMeshAgent>();
         _player = GameObject.Find(_agentTarget).transform;
     }
 
-    // private void FixedUpdate()
-    // {
-    //     var distance = Vector3.Distance(transform.position, _player.position);
-    //     if (distance < _attackRange)
-    //     {
-    //         _agent.SetDestination(transform.position);
-    //         transform.LookAt(_player);
-    //         if (_alreadyAttacked) return;
-    //         _animator.SetTrigger("attack");
-    //         _alreadyAttacked = true;
-    //         Invoke(nameof(ResetAttack), 8);
-    //     }
-    // }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        _animator.SetTrigger("attack");
+        if (!other.CompareTag("Player")) return;
+        Invoke(nameof(DisableBrains), 1);
+        Invoke(nameof(AttackPlayer), 1);
     }
 
-    private void RepeatAnimation()
+    private void OnTriggerExit(Collider other)
     {
-        _animator.SetTrigger("attack");
+        if (!other.CompareTag("Player")) return;
+        gameObject.GetComponent<RangeEnemyAi>().enabled = true;
     }
 
+    private void DisableBrains()
+    {
+        gameObject.GetComponent<RangeEnemyAi>().enabled = false;
+    }
+
+    private void AttackPlayer()
+    {
+        _animator.SetTrigger(Attack);
+    }
+
+    //Scripts below used by animation
     private void SpawnBullet()
     {
-        var currentBullet = Instantiate(_projectile, _bulletSpawnPoint.position,
+        var spawnPosition = _bulletSpawnPoint.position;
+        var directionToShoot = _player.position - spawnPosition;
+        var currentBullet = Instantiate(_projectile, spawnPosition,
             Quaternion.identity).GetComponent<Rigidbody>();
-        currentBullet.AddForce(_bulletSpawnPoint.forward * _shootForce, ForceMode.Impulse);
-        currentBullet.AddForce(_bulletSpawnPoint.up * _upwardForce, ForceMode.Impulse);
+        currentBullet.AddForce(directionToShoot.normalized * _shootForce, ForceMode.Impulse);
+    }
+
+    private void LookAtPlayer()
+    {
+        transform.LookAt(_player);
     }
 }

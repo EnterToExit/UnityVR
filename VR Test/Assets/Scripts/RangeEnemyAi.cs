@@ -11,6 +11,7 @@ public class RangeEnemyAi : MonoBehaviour
     [SerializeField] private float _walkPointRange;
     [SerializeField] private float _sightRange;
     [SerializeField] private float _requiredRange;
+    [SerializeField] private bool _attacking;
     private Transform _player;
     private Vector3 _walkPoint;
     private bool _alreadyAttacked;
@@ -51,6 +52,7 @@ public class RangeEnemyAi : MonoBehaviour
 
     private void ChasePlayer()
     {
+        if (_attacking) return;
         _agent.SetDestination(_player.position);
         _agent.speed = 3.5f;
     }
