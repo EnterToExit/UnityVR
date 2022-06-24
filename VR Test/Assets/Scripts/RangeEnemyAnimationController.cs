@@ -17,6 +17,7 @@ public class RangeEnemyAnimationController : MonoBehaviour
         _velocityHash = Animator.StringToHash("charVelocity");
         StartCoroutine(CalcSpeed());
     }
+    //asdasdasdasd
 
     public void Update()
     {
