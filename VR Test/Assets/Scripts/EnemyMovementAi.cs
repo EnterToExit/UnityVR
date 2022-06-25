@@ -2,7 +2,7 @@
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class RangeEnemyAi : MonoBehaviour
+public class EnemyMovementAi : MonoBehaviour
 {
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private string _agentTarget;

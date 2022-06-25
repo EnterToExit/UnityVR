@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class RangeEnemyAnimationController : MonoBehaviour
+public class EnemyAnimationController : MonoBehaviour
 {
     [SerializeField] private float _velocity;
     private Animator _animator;

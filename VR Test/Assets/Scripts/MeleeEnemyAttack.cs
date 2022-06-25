@@ -1,11 +1,8 @@
 using UnityEngine;
 
-public class RangeEnemyAttack : MonoBehaviour
+public class MeleeEnemyAttack : MonoBehaviour
 {
-    [SerializeField] private GameObject _projectile;
-    [SerializeField] private Transform _bulletSpawnPoint;
     [SerializeField] private string _agentTarget;
-    [SerializeField] private float _shootForce;
     private bool _attackAllowed;
     private Animator _animator;
     private Transform _player;
@@ -20,7 +17,7 @@ public class RangeEnemyAttack : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
-        Invoke(nameof(DisableBrains), 1);
+        Invoke(nameof(DisableBrains), 1f);
         Invoke(nameof(AttackPlayer), 1);
     }
 
@@ -41,13 +38,9 @@ public class RangeEnemyAttack : MonoBehaviour
     }
 
     //Scripts below used by animation
-    private void SpawnBullet()
+    private void DecreaseHealths()
     {
-        var spawnPosition = _bulletSpawnPoint.position;
-        var directionToShoot = _player.position - spawnPosition;
-        var currentBullet = Instantiate(_projectile, spawnPosition,
-            Quaternion.identity).GetComponent<Rigidbody>();
-        currentBullet.AddForce(directionToShoot.normalized * _shootForce, ForceMode.Impulse);
+        //TODO
     }
 
     private void LookAtPlayer()
