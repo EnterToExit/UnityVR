@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class SimpleShoot : MonoBehaviour
 {
+    // --- Audio ---
+    public AudioClip GunShotClip;
+    public AudioSource source;
+    public Vector2 audioPitch = new Vector2(.9f, 1.1f);
 
     [Header("Prefab Refrences")]
     public GameObject bulletPrefab;
@@ -67,8 +71,27 @@ public class SimpleShoot : MonoBehaviour
         // Создаём пулю и добавеяем к ней силу в направлении ствола
         Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
 
-        
-
+        if (source != null)
+        {
+            
+            if (source.transform.IsChildOf(transform))
+            {
+                source.Play();
+            }
+            else
+            {
+                AudioSource newAS = Instantiate(source);
+                if ((newAS = Instantiate(source)) != null && newAS.outputAudioMixerGroup != null && newAS.outputAudioMixerGroup.audioMixer != null)
+                {
+                    newAS.outputAudioMixerGroup.audioMixer.SetFloat("Pitch", Random.Range(audioPitch.x, audioPitch.y));
+                    newAS.pitch = Random.Range(audioPitch.x, audioPitch.y);
+                    
+                    newAS.PlayOneShot(GunShotClip);
+                   
+                    Destroy(newAS.gameObject, 4);
+                }
+            }
+        }
     }
 
     // Эта функция создает кожух в прорези выброса
