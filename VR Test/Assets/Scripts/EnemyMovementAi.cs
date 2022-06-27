@@ -28,9 +28,10 @@ public class EnemyMovementAi : MonoBehaviour
         var agentPosition = transform.position;
         var playerPosition = _player.position;
         var distance = Vector3.Distance(agentPosition, playerPosition);
-
+        var inSight = Vector3.SignedAngle(playerPosition - agentPosition,
+            transform.forward, new Vector3(0, 0, 1)) < 90f;
         if (distance > _sightRange && distance > _requiredRange) Patroling();
-        if (distance < _sightRange && distance > _requiredRange) ChasePlayer();
+        if (distance < _sightRange && distance > _requiredRange && inSight) ChasePlayer();
         if (distance < _sightRange && distance < _requiredRange)
         {
             _agent.SetDestination(agentPosition);

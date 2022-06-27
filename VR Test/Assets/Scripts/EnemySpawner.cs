@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
     {
         while (_enemyCount < _enemyMax)
         {
-            Instantiate(_enemy, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            Instantiate(_enemy, transform.position, Quaternion.identity);
             yield return new WaitForSeconds(2f);
             _enemyCount++;
         }

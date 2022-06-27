@@ -45,7 +45,7 @@ public class MeleeEnemyAttack : MonoBehaviour
 
     private void LookAtPlayer()
     {
-        var playerPosition = new Vector3( _player.position.x, transform.position.y, _player.position.z );
+        var playerPosition = new Vector3(_player.position.x, transform.position.y, _player.position.z);
         transform.LookAt(playerPosition);
     }
 }

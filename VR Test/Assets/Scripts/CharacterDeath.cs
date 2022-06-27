@@ -3,14 +3,14 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(Health))]
-
-
 public class CharacterDeath : MonoBehaviour
 {
     [SerializeField] private Health _health;
     private Animator _animator;
     private bool _animationStarted;
     private static readonly int KillCharacter = Animator.StringToHash("killCharacter");
+    private string _agentName;
+
 
     private void Awake()
     {
@@ -48,5 +48,14 @@ public class CharacterDeath : MonoBehaviour
     {
         Destroy(gameObject.GetComponent<EnemyMovementAi>());
         Destroy(gameObject.GetComponent<EnemyAnimationController>());
+        if (gameObject.name == "MeleeEnemy")
+        {
+            Destroy(gameObject.GetComponent<MeleeEnemyAttack>());
+        }
+
+        if (gameObject.name == "RangeEnemy")
+        {
+            Destroy(gameObject.GetComponent<RangeEnemyAttack>());
+        }
     }
 }
