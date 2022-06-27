@@ -53,7 +53,6 @@ public class SimpleShoot : MonoBehaviour
     void Shoot()
     {
         
-        
         if (muzzleFlashPrefab)
         {
             // Создание эффекта

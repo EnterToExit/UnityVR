@@ -13,37 +13,37 @@ public class GunShoot : MonoBehaviour {
 	public float ShootTimer = 0.0f; // Время выстрела
 	public Transform bullet; // Патрон
 	
-	void Update () {
-		
-if(Input.GetMouseButton(0)& CurAmmo>0 &ReloadTimer<=0 &ShootTimer<=0) 
-{ 
-  Transform BulletInstance = (Transform) Instantiate(bullet, GameObject.Find("Spawn").transform.position, Quaternion.identity); 
-  BulletInstance.GetComponent<Rigidbody>().AddForce(transform.forward * 5000); 
-  CurAmmo = CurAmmo - 1; 
-  GetComponent<AudioSource>().PlayOneShot (Fire); 
-  ShootTimer = ShootSpeed; 
-} 
-  if(ShootTimer>0) 
-  { 
-  ShootTimer -= Time.deltaTime ; 
-  } 
+	void Update () 
+	{
+		if(Input.GetMouseButton(0)& CurAmmo>0 &ReloadTimer<=0 &ShootTimer<=0) 
+		{ 
+			Transform BulletInstance = (Transform) Instantiate(bullet, GameObject.Find("Spawn").transform.position, Quaternion.identity); 
+			BulletInstance.GetComponent<Rigidbody>().AddForce(transform.forward * 5000); 
+			CurAmmo = CurAmmo - 1; 
+			GetComponent<AudioSource>().PlayOneShot (Fire); 
+			ShootTimer = ShootSpeed; 
+		} 
+		if(ShootTimer>0) 
+		{ 
+			ShootTimer -= Time.deltaTime; 
+		} 
      
-  if(Input.GetKeyDown(KeyCode.R)) 
-  { 
-ReloadTimer = ReloadSpeed;   
-  CurAmmo = Ammo; 
-  GetComponent<AudioSource>().PlayOneShot(Reload); 
-  { 
-  if(ShootTimer>0) 
-  { 
-  ShootTimer -= Time.deltaTime; 
-  } 
-  } 
-  } 
+		if(Input.GetKeyDown(KeyCode.R)) 
+		{ 
+			ReloadTimer = ReloadSpeed;   
+			CurAmmo = Ammo; 
+			GetComponent<AudioSource>().PlayOneShot(Reload); 
+		{ 
+		if(ShootTimer>0) 
+		{ 
+			ShootTimer -= Time.deltaTime; 
+		} 
+	} 
+} 
    
-  if(ReloadTimer>0) 
-  { 
-  ReloadTimer -= Time.deltaTime ; 
-  } 
+	if(ReloadTimer>0) 
+	{ 
+	ReloadTimer -= Time.deltaTime; 
+	} 
 }
 }
