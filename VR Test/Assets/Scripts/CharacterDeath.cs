@@ -46,6 +46,7 @@ public class CharacterDeath : MonoBehaviour
 
     private void DisableAllBrains()
     {
+        Destroy(gameObject.GetComponentInChildren<HitBoxTrigger>());
         Destroy(gameObject.GetComponent<EnemyMovementAi>());
         Destroy(gameObject.GetComponent<EnemyAnimationController>());
         if (gameObject.name == "MeleeEnemy")
