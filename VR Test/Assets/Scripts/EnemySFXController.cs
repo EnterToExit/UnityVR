@@ -7,7 +7,10 @@ public class EnemySFXController : MonoBehaviour
     [SerializeField] private AudioClip _punch;
     [SerializeField] private AudioClip _cast;
     [SerializeField] private AudioClip _dying;
+    [SerializeField] private AudioClip _casterDying;
     [SerializeField] private AudioClip _takeDamage;
+    [SerializeField] private AudioClip _casterReact;
+    [SerializeField] private AudioClip _eating;
     private AudioSource _audioSource;
 
 
@@ -16,39 +19,58 @@ public class EnemySFXController : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    private void Step()
+    private void StepSound()
     {
         _audioSource.pitch = NextFloat(0.8f, 1.2f);
         _audioSource.volume = NextFloat(0.8f, 1);
         _audioSource.PlayOneShot(_step);
     }
 
-    private void Punch()
+    private void PunchSound()
     {
         _audioSource.pitch = NextFloat(0.8f, 1.2f);
         _audioSource.volume = NextFloat(0.8f, 1);
         _audioSource.PlayOneShot(_punch);
     }
 
-    private void Cast()
+    private void CastSound()
     {
         _audioSource.pitch = NextFloat(0.9f, 1.1f);
         _audioSource.volume = NextFloat(0.8f, 1);
         _audioSource.PlayOneShot(_cast);
     }
 
-    private void TakeDamage()
+    private void TakeDamageSound()
     {
         _audioSource.pitch = NextFloat(0.9f, 1.1f);
         _audioSource.volume = NextFloat(0.8f, 1);
         _audioSource.PlayOneShot(_takeDamage);
     }
-
-    private void Death()
+    
+    private void CasterReactSound()
     {
         _audioSource.pitch = NextFloat(0.9f, 1.1f);
         _audioSource.volume = NextFloat(0.8f, 1);
+        _audioSource.PlayOneShot(_casterReact);
+    }
+
+    private void DeathSound()
+    {
+        _audioSource.pitch = NextFloat(0.9f, 1.1f);
         _audioSource.PlayOneShot(_dying);
+    }
+    
+    private void CasterDeathSound()
+    {
+        _audioSource.pitch = NextFloat(0.9f, 1.1f);
+        _audioSource.PlayOneShot(_casterDying);
+    }
+    
+    private void EatingSound()
+    {
+        _audioSource.pitch = NextFloat(0.9f, 1.1f);
+        _audioSource.volume = NextFloat(0.8f, 1);
+        _audioSource.PlayOneShot(_eating);
     }
 
     private static float NextFloat(float min, float max)

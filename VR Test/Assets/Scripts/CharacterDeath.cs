@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,6 +11,7 @@ public class CharacterDeath : MonoBehaviour
     private bool _animationStarted;
     private static readonly int KillCharacter = Animator.StringToHash("killCharacter");
     private string _agentName;
+    private Vector3 _deathPosition;
 
 
     private void Awake()
@@ -17,6 +19,12 @@ public class CharacterDeath : MonoBehaviour
         _animator = GetComponent<Animator>();
         _health = GetComponent<Health>();
         _health.Changed += OnHealthChanged;
+    }
+
+    private void Update()
+    {
+        if (!_animationStarted) return;
+        transform.position = _deathPosition;
     }
 
     private void OnDestroy()
@@ -27,16 +35,16 @@ public class CharacterDeath : MonoBehaviour
     private void OnHealthChanged(float value)
     {
         if (value > 0) return;
-        if (_animationStarted) return;
-        _animationStarted = true;
 
         StartCoroutine(PlayDeathEffect());
+        Invoke(nameof(KillCharacterFunc), 5f);
     }
 
     private IEnumerator PlayDeathEffect()
     {
         yield return null;
         _animator.SetTrigger(KillCharacter);
+        Destroy(gameObject.GetComponentInChildren<HitBoxTrigger>());
     }
 
     private void KillCharacterFunc() //used by death animation
@@ -46,7 +54,8 @@ public class CharacterDeath : MonoBehaviour
 
     private void DisableAllBrains()
     {
-        Destroy(gameObject.GetComponentInChildren<HitBoxTrigger>());
+        _animationStarted = true;
+        _deathPosition = transform.position;
         Destroy(gameObject.GetComponent<EnemyMovementAi>());
         Destroy(gameObject.GetComponent<EnemyAnimationController>());
         if (gameObject.name == "MeleeEnemy")

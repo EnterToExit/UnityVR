@@ -40,7 +40,7 @@ public class EnemyMovementAi : MonoBehaviour
 
     private void Patroling()
     {
-        _agent.speed = 2f;
+        _agent.speed = gameObject.name == "CasterEnemy" ? 1f : 2f;
         if (!_walkPointSet) SearchWalkPoint();
         if (_walkPointSet)
             _agent.SetDestination(_walkPoint);
@@ -54,7 +54,7 @@ public class EnemyMovementAi : MonoBehaviour
     {
         if (_attacking) return;
         _agent.SetDestination(_player.position);
-        _agent.speed = 3.5f;
+        _agent.speed = gameObject.name == "CasterEnemy" ? 2f : 3.5f;
     }
 
     private void SearchWalkPoint()

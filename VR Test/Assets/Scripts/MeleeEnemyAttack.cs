@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MeleeEnemyAttack : MonoBehaviour
 {
@@ -7,12 +8,14 @@ public class MeleeEnemyAttack : MonoBehaviour
     private bool _attackAllowed;
     private Animator _animator;
     private Transform _player;
+    private NavMeshAgent _agent;
     private static readonly int Attack = Animator.StringToHash("attack");
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _player = GameObject.Find(_agentTarget).transform;
+        _agent = GetComponent<NavMeshAgent>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,11 +29,13 @@ public class MeleeEnemyAttack : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
         gameObject.GetComponent<EnemyMovementAi>().enabled = true;
+        _agent.radius = 0.5f;
     }
 
     private void DisableBrains()
     {
         gameObject.GetComponent<EnemyMovementAi>().enabled = false;
+        _agent.radius = 0.001f;
     }
 
     private void AttackPlayer()
