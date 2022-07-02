@@ -4,6 +4,7 @@ using UnityEngine.AI;
 public class RangeEnemyAttack : MonoBehaviour
 {
     [SerializeField] private GameObject _projectile;
+    [SerializeField] private GameObject _autoBullet;
     [SerializeField] private Transform _bulletSpawnPoint;
     [SerializeField] private string _agentTarget;
     [SerializeField] private float _shootForce;
@@ -59,11 +60,7 @@ public class RangeEnemyAttack : MonoBehaviour
     private void SpawnBulletAuto()
     {
         var spawnPosition = _bulletSpawnPoint.position;
-        var directionToShoot = _player.position - spawnPosition;
-        var currentBullet = Instantiate(_projectile, spawnPosition,
-            Quaternion.identity).GetComponent<Rigidbody>();
-        currentBullet.AddForce(directionToShoot.normalized * _shootForce, ForceMode.Impulse);
-        currentBullet.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+        Instantiate(_autoBullet, spawnPosition, Quaternion.identity);
     }
 
     private void LookAtPlayer()

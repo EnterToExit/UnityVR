@@ -78974,7 +78974,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6333333
+  - time: 0.06666667
     functionName: CastSound
     data: 
     objectReferenceParameter: {fileID: 0}

@@ -598,6 +598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectile: {fileID: 6859549490387425836, guid: 4e9efac44c7c182439ec0ebee39b7666, type: 3}
+  _autoBullet: {fileID: 0}
   _bulletSpawnPoint: {fileID: 1513208338708493622}
   _agentTarget: Player
   _shootForce: 20
@@ -646,7 +647,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 5
   Pan2D: 0
@@ -737,10 +738,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _step: {fileID: 8300000, guid: 242c813d4c365284ca3def660428457f, type: 3}
   _punch: {fileID: 0}
-  _cast: {fileID: 8300000, guid: 821f17bac25d77d4da7a6b11f5daaea8, type: 3}
+  _cast: {fileID: 8300000, guid: ba3af90af53f85141bbe3f9529cde96d, type: 3}
   _dying: {fileID: 8300000, guid: 804d72731eb4912429eaef9567619a1d, type: 3}
+  _casterDying: {fileID: 0}
   _takeDamage: {fileID: 8300000, guid: 6ae48d28debfa4b43bd39e2cc9aadfbe, type: 3}
+  _casterReact: {fileID: 0}
   _eating: {fileID: 0}
+  _castingCaster: {fileID: 0}
 --- !u!1 &1839966332643950222
 GameObject:
   m_ObjectHideFlags: 0

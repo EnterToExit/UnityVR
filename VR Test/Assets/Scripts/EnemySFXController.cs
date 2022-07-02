@@ -11,6 +11,7 @@ public class EnemySFXController : MonoBehaviour
     [SerializeField] private AudioClip _takeDamage;
     [SerializeField] private AudioClip _casterReact;
     [SerializeField] private AudioClip _eating;
+    [SerializeField] private AudioClip _castingCaster;
     private AudioSource _audioSource;
 
 
@@ -35,8 +36,6 @@ public class EnemySFXController : MonoBehaviour
 
     private void CastSound()
     {
-        _audioSource.pitch = NextFloat(0.9f, 1.1f);
-        _audioSource.volume = NextFloat(0.8f, 1);
         _audioSource.PlayOneShot(_cast);
     }
 
@@ -71,6 +70,12 @@ public class EnemySFXController : MonoBehaviour
         _audioSource.pitch = NextFloat(0.9f, 1.1f);
         _audioSource.volume = NextFloat(0.8f, 1);
         _audioSource.PlayOneShot(_eating);
+    }
+
+    private void CasterCastingSound()
+    {
+        _audioSource.pitch = 1f;
+        _audioSource.PlayOneShot(_castingCaster);
     }
 
     private static float NextFloat(float min, float max)
