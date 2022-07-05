@@ -5,14 +5,16 @@ using UnityEngine.XR;
 
 public class PlayerUIController : MonoBehaviour
 {
-    [SerializeField] private InputActionAsset _input;
+    [SerializeField] private InputActionReference _action;
 
     private void Start()
     {
-        foreach (var action in _input)
-        {
-            Debug.Log(action);
-        }
+        _action.action.performed += Test;
+    }
+
+    private void Test(InputAction.CallbackContext obj)
+    {
+        return;
     }
 
     public void Pause()
