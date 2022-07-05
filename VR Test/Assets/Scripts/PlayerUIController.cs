@@ -6,15 +6,18 @@ using UnityEngine.XR;
 public class PlayerUIController : MonoBehaviour
 {
     [SerializeField] private InputActionReference _action;
+    [SerializeField] private GameObject _gameObject;
 
     private void Start()
     {
         _action.action.performed += Test;
+        _gameObject.GetComponent<Rigidbody>();
     }
 
     private void Test(InputAction.CallbackContext obj)
     {
-        return;
+        Debug.Log("test");
+        Instantiate(_gameObject, gameObject.transform);
     }
 
     public void Pause()
