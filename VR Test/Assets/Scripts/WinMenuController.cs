@@ -8,12 +8,12 @@ public class WinMenuController : MonoBehaviour
     public void MainMenuLoad()
     {
         // SceneManager.LoadScene("MainMenu"); //TODO
-        Debug.Log("switched to main menu(gameOverMenuController)");
+        Debug.Log("switched to main menu(winMenuController)");
     }
 
     public void RestartGame()
     {
         // SceneManager.LoadScene(""); //TODO
-        Debug.Log("restart game from (gameOverMenuController)");
+        Debug.Log("restart game from (winMenuController)");
     }
 }

@@ -813,8 +813,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameOverMenuController, Assembly-CSharp
+      - m_Target: {fileID: 6342319587685201148}
+        m_TargetAssemblyTypeName: WinMenuController, Assembly-CSharp
         m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
@@ -1083,8 +1083,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameOverMenuController, Assembly-CSharp
+      - m_Target: {fileID: 6342319587685201148}
+        m_TargetAssemblyTypeName: WinMenuController, Assembly-CSharp
         m_MethodName: MainMenuLoad
         m_Mode: 1
         m_Arguments:
