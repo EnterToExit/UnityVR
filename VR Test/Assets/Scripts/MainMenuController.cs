@@ -5,7 +5,7 @@ public class MainMenuController : MonoBehaviour
 {
     public void StartButton()
     {
-        // SceneManager.LoadScene("NEED TO BE REPLACED BY MAIN SCENE");
-        Debug.Log("switched to new scene");
+        // SceneManager.LoadScene(""); //TODO
+        Debug.Log("switched to game scene (from mainMenuController)");
     }
 }

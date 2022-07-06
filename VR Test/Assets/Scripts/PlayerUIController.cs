@@ -1,43 +1,74 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR;
+using UnityEngine.SceneManagement;
 
 public class PlayerUIController : MonoBehaviour
 {
-    [SerializeField] private InputActionReference _action;
-    [SerializeField] private GameObject _gameObject;
-
-    private void Start()
+    [SerializeField] private InputActionReference _actionReference;
+    [SerializeField] private GameObject _actionMenuUI;
+    [SerializeField] private GameObject _pauseMenuUI;
+    [SerializeField] private GameObject _chooseMenu;
+    [SerializeField] private GameObject _chooseMenu2;
+    private static bool _gameIsPaused;
+    
+    private void Awake()
     {
-        _action.action.performed += Test;
-        _gameObject.GetComponent<Rigidbody>();
+        _actionReference.action.performed += StartButton; //Exception
     }
 
-    private void Test(InputAction.CallbackContext obj)
+    private void StartButton(InputAction.CallbackContext obj)
     {
-        Debug.Log("test");
-        Instantiate(_gameObject, gameObject.transform);
+        if (_gameIsPaused)
+        {
+            Resume();
+        }
+        else
+        {
+            Pause();
+        }
     }
 
-    public void Pause()
+    private void CloseChooseWindows()
     {
-        // pauseMenuUI.SetActive(true);
+        _chooseMenu.SetActive(false);
+        _chooseMenu2.SetActive(false);
+    }
+
+    private void Pause()
+    {
+        _gameIsPaused = true;
+        _actionMenuUI.SetActive(false);
+        _pauseMenuUI.SetActive(true);
         Time.timeScale = 0;
-        // _gameIsPaused = true;
-        Debug.Log("Game is paused");
+        Debug.Log("Game is paused by controller");
     }
 
-    public void Resume()
+    private void Resume()
     {
+        _gameIsPaused = false;
+        _actionMenuUI.SetActive(true);
+        _pauseMenuUI.SetActive(false);
+        CloseChooseWindows();
         Time.timeScale = 1;
-        // _gameIsPaused = false;
-        Debug.Log("Game is resumed");
+        Debug.Log("Game is resumed by controller");
+    }
+    
+    public void ResumeButton()
+    {
+        _gameIsPaused = false;
+        Time.timeScale = 1;
+        Debug.Log("Game is resumed by keyboard");
     }
 
     public void MenuLoad()
     {
-        // SceneManager.LoadScene("NEED TO BE REPLACED BY MENU SCENE");
-        Debug.Log("switched to main menu");
+        // SceneManager.LoadScene("MainMenu"); //TODO
+        Debug.Log("switched to main menu (playerUIController)");
+    }
+
+    public void RestartLevel()
+    {
+        // SceneManager.LoadScene("") //TODO
+        Debug.Log("restarting level (playerUIController)");
     }
 }
