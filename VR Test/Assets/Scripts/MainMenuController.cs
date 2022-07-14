@@ -5,7 +5,7 @@ public class MainMenuController : MonoBehaviour
 {
     public void StartButton()
     {
-        // SceneManager.LoadScene(""); //TODO
+        SceneManager.LoadScene("MainScene");
         Debug.Log("switched to game scene (from mainMenuController)");
     }
 }

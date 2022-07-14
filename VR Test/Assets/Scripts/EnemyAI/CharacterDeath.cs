@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 
 [RequireComponent(typeof(Health))]
 public class CharacterDeath : MonoBehaviour

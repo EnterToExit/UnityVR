@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,13 +5,13 @@ public class WinMenuController : MonoBehaviour
 {
     public void MainMenuLoad()
     {
-        // SceneManager.LoadScene("MainMenu"); //TODO
+        SceneManager.LoadScene("MainMenu");
         Debug.Log("switched to main menu(winMenuController)");
     }
 
     public void RestartGame()
     {
-        // SceneManager.LoadScene(""); //TODO
+        SceneManager.LoadScene("MainScene");
         Debug.Log("restart game from (winMenuController)");
     }
 }

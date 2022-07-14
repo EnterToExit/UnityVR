@@ -62,13 +62,13 @@ public class PlayerUIController : MonoBehaviour
 
     public void MenuLoad()
     {
-        // SceneManager.LoadScene("MainMenu"); //TODO
+        SceneManager.LoadScene("MainMenu");
         Debug.Log("switched to main menu (playerUIController)");
     }
 
     public void RestartLevel()
     {
-        // SceneManager.LoadScene("") //TODO
+        SceneManager.LoadScene("MainScene");
         Debug.Log("restarting level (playerUIController)");
     }
 }
