@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerUIController : MonoBehaviour
 {
@@ -9,11 +11,18 @@ public class PlayerUIController : MonoBehaviour
     [SerializeField] private GameObject _pauseMenuUI;
     [SerializeField] private GameObject _chooseMenu;
     [SerializeField] private GameObject _chooseMenu2;
+    [SerializeField] private Image _healthBar;
+    [SerializeField] private Health _healthState;
     private static bool _gameIsPaused;
     
     private void Awake()
     {
         _actionReference.action.performed += StartButton; //Exception
+    }
+
+    private void Update()
+    {
+        _healthBar.fillAmount = _healthState.GiveCurrentHealths() / 100;
     }
 
     private void StartButton(InputAction.CallbackContext obj)

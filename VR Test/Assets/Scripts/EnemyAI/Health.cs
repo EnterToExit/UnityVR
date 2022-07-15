@@ -17,4 +17,9 @@ public class Health : MonoBehaviour
         _currentHealth -= damage;
         Changed?.Invoke(_currentHealth);
     }
+
+    public float GiveCurrentHealths()
+    {
+        return _currentHealth;
+    }
 }
