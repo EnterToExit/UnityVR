@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -14,7 +13,7 @@ public class PlayerUIController : MonoBehaviour
     [SerializeField] private Image _healthBar;
     [SerializeField] private Health _healthState;
     private static bool _gameIsPaused;
-    
+
     private void Awake()
     {
         _actionReference.action.performed += StartButton; //Exception
@@ -61,7 +60,7 @@ public class PlayerUIController : MonoBehaviour
         Time.timeScale = 1;
         Debug.Log("Game is resumed by controller");
     }
-    
+
     public void ResumeButton()
     {
         _gameIsPaused = false;

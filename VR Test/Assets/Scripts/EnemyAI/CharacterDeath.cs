@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Health))]
 public class CharacterDeath : MonoBehaviour
 {
+    public static event Action<int> Dead;
     [SerializeField] private Health _health;
+    [SerializeField] private int _scorePoints;
     private Animator _animator;
     private Vector3 _deathPosition;
     private bool _animationStarted;
@@ -36,6 +39,7 @@ public class CharacterDeath : MonoBehaviour
 
         StartCoroutine(PlayDeathEffect());
         Invoke(nameof(KillCharacterFunc), 5f);
+        Dead?.Invoke(_scorePoints);
     }
 
     private IEnumerator PlayDeathEffect()
