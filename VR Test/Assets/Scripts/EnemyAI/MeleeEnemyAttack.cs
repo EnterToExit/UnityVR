@@ -4,17 +4,20 @@ using UnityEngine.AI;
 public class MeleeEnemyAttack : MonoBehaviour
 {
     [SerializeField] private string _agentTarget;
-    private bool _attackAllowed;
+    [SerializeField] private float _agentDamage;
     private Animator _animator;
     private Transform _player;
+    private Health _health;
     private NavMeshAgent _agent;
+    private bool _attackAllowed;
     private static readonly int Attack = Animator.StringToHash("attack");
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
         _player = GameObject.Find(_agentTarget).transform;
+        _health = _player.GetComponentInChildren<Health>();
         _agent = GetComponent<NavMeshAgent>();
+        _animator = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,7 +48,7 @@ public class MeleeEnemyAttack : MonoBehaviour
     //Scripts below used by animation
     private void DecreaseHealths()
     {
-        //TODO
+        _health.TakeDamage(_agentDamage);
     }
 
     private void LookAtPlayer()

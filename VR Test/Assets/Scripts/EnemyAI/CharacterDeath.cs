@@ -6,10 +6,10 @@ public class CharacterDeath : MonoBehaviour
 {
     [SerializeField] private Health _health;
     private Animator _animator;
-    private bool _animationStarted;
-    private static readonly int KillCharacter = Animator.StringToHash("killCharacter");
-    private string _agentName;
     private Vector3 _deathPosition;
+    private bool _animationStarted;
+    private string _agentName;
+    private static readonly int KillCharacter = Animator.StringToHash("killCharacter");
 
 
     private void Awake()

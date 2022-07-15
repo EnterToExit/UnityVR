@@ -8,10 +8,10 @@ public class RangeEnemyAttack : MonoBehaviour
     [SerializeField] private Transform _bulletSpawnPoint;
     [SerializeField] private string _agentTarget;
     [SerializeField] private float _shootForce;
-    private bool _attackAllowed;
     private Animator _animator;
     private Transform _player;
     private NavMeshAgent _agent;
+    private bool _attackAllowed;
     private static readonly int Attack = Animator.StringToHash("attack");
 
     private void Awake()

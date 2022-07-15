@@ -24,7 +24,6 @@ public class EnemyMovementAi : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Check for sight and attack range
         var agentPosition = transform.position;
         var playerPosition = _player.position;
         var distance = Vector3.Distance(agentPosition, playerPosition);
@@ -45,7 +44,6 @@ public class EnemyMovementAi : MonoBehaviour
         if (_walkPointSet)
             _agent.SetDestination(_walkPoint);
         var distanceToWalkPoint = transform.position - _walkPoint;
-        //Walkpoint reached
         if (distanceToWalkPoint.magnitude < 1f)
             _walkPointSet = false;
     }
