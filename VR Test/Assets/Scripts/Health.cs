@@ -18,6 +18,14 @@ public class Health : MonoBehaviour
         Changed?.Invoke(_currentHealth);
     }
 
+    public void Heal(float healAmount)
+    {
+        _currentHealth += healAmount;
+        if (_currentHealth > _maxHealth)
+            _currentHealth = _maxHealth;
+        Changed?.Invoke(_currentHealth);
+    }
+
     public float GiveCurrentHealths()
     {
         return _currentHealth;
