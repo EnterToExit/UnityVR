@@ -15,12 +15,16 @@ public class New : MonoBehaviour
     public GameObject muzzleFlash;
     public Transform bulletSpawn;
     public AudioClip shotClip;
+    public AudioClip reloadClip;
     public AudioSource _audioSource;
-    public GameObject hitEffect;
 
-    private float nextFire = 0f;
+    public int maxammo = 40;
+    public int currentammo;
 
     private XRGrabInteractable _grabInteractable;
+
+    [SerializeField]
+    public TextMeshPro ammoText;
 
     private void Awake()
     {
@@ -48,21 +52,36 @@ public class New : MonoBehaviour
     private void GunActivated(ActivateEventArgs activateEventArgs)
     {
         Debug.Log("Start shoot");
-        if (Input.GetButton("Fire1") && Time.time > nextFire)
-        {
-            nextFire = Time.time + 1f / fireRate;
-            Shoot();
-        }
+        StartCoroutine(AutoShoot()); 
     }
 
+    private IEnumerator AutoShoot()
+    {
+        while (true)
+        {
+            if (currentammo > 0)
+            {
+                Shoot();
+                yield return new WaitForSeconds(0.3f);
+                currentammo--;
+                if (currentammo == 0)
+                {
+                    currentammo = maxammo;
+                }
+            }
+        }
+    }
+    
     private void GunDectivated(DeactivateEventArgs activateEventArgs)
     {
         Debug.Log("Stop shoot");
+        StopAllCoroutines();
 
     }
 
     void Shoot()
     {
+        ammoText.text = currentammo.ToString();
         _audioSource.PlayOneShot(shotClip);
         if (muzzleFlash)
         {
@@ -73,18 +92,17 @@ public class New : MonoBehaviour
             // ”ничтожение эффекта
             Destroy(tempFlash, 2f);
         }
-
+        
         RaycastHit hit;
 
         if (Physics.Raycast(bulletSpawn.transform.position, bulletSpawn.transform.forward, out hit, range))
         {
-            GameObject impact = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(impact, 2f);
 
-            if (hit.rigidbody != null)
+            if (hit.collider.gameObject.TryGetComponent<Health>(out var hp))
             {
-                hit.rigidbody.AddForce(-hit.normal * force);
+                hp.TakeDamage(damage);
             }
+            
         }
     }
 }

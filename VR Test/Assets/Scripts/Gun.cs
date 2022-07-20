@@ -31,10 +31,7 @@ public class Gun : MonoBehaviour
     [Tooltip("Casing Ejection Speed")] [SerializeField] private float ejectPower = 150f;
 
     public int maxammo = 10;
-    private int currentammo = -1;
-    //public float reloadTime = 1f;
-    //private bool isReloading = false;
-
+    public int currentammo;
 
     private XRGrabInteractable _grabInteractable;
 
@@ -66,31 +63,62 @@ public class Gun : MonoBehaviour
 
     private void GunActivated(ActivateEventArgs activateEventArgs)
     {
-      
-
         Debug.Log("Start shoot");
+        StartCoroutine(GunShoot());
+    }
 
+    
 
+    private void GunDectivated(DeactivateEventArgs activateEventArgs)
+    {
+        Debug.Log("Stop shoot");
+        StopAllCoroutines();
+    }
+
+    private IEnumerator GunShoot()
+    {
+       
         if (currentammo > 0)
         {
-            GetComponent<Animator>().SetTrigger("Fire");
-            maxammo = maxammo - 1;
-            textMeshPro.text = maxammo.ToString();
             
+            Shoot();
+            textMeshPro.text = currentammo.ToString();
+            
+            currentammo--;
+            if (currentammo == 0)
+            {
+                currentammo = maxammo;
+            }
+            yield return new WaitForSeconds(0.3f);
         }
+        
+    }
+    
+    // Эта функция создает кожух в прорези выброса
+    void CasingRelease()
+    {
+        // Отменяет функцию, если прорезь для выброса не установлена или отсутствует гильза 
+        if (!casingExitLocation || !casingPrefab)
+        { return; }
 
+        // Создание корпуса
+        GameObject tempCasing;
+        tempCasing = Instantiate(casingPrefab, casingExitLocation.position, casingExitLocation.rotation) as GameObject;
+        // Выталкивание снаряда
+        tempCasing.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(ejectPower * 0.7f, ejectPower), (casingExitLocation.position - casingExitLocation.right * 0.3f - casingExitLocation.up * 0.6f), 1f);
 
+        tempCasing.GetComponent<Rigidbody>().AddTorque(new Vector3(0, Random.Range(100f, 500f), Random.Range(100f, 1000f)), ForceMode.Impulse);
 
-        /*
-        if (Vector3.Angle(transform.up, Vector3.up) > 100 && currentammo < maxammo)
-            Reload();
-        */
+        // Уничтожить кожух через X секунд
+        Destroy(tempCasing, destroyTimer);
+    }
 
-
-
+    void Shoot()
+    {
+        
         if (barrelLocation == null)
             barrelLocation = transform;
-       
+
 
         if (gunAnimator == null)
             gunAnimator = GetComponentInChildren<Animator>();
@@ -133,54 +161,5 @@ public class Gun : MonoBehaviour
                 }
             }
         }
-        
-
-    }
-
-    
-
-    private void GunDectivated(DeactivateEventArgs activateEventArgs)
-    {
-        Debug.Log("Stop shoot");
-        
-        // Левая кнопка мыши
-        if (Input.GetButtonDown("Fire1"))
-        {
-            // Вызывает анимацию на оружии, имеющем соответствующие события анимации, чтобы сделать вытрел
-            gunAnimator.SetTrigger("Fire");
-        }
-        
-    }
-    /*
-    void Reload()
-    {
-        isReloading = true;
-
-        Debug.Log("Reloading");
-
-        //yield return new WaitForSeconds(reloadTime);
-
-        currentammo = maxammo;
-
-        isReloading = false;
-    }
-    */
-    // Эта функция создает кожух в прорези выброса
-    void CasingRelease()
-    {
-        // Отменяет функцию, если прорезь для выброса не установлена или отсутствует гильза 
-        if (!casingExitLocation || !casingPrefab)
-        { return; }
-
-        // Создание корпуса
-        GameObject tempCasing;
-        tempCasing = Instantiate(casingPrefab, casingExitLocation.position, casingExitLocation.rotation) as GameObject;
-        // Выталкивание снаряда
-        tempCasing.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(ejectPower * 0.7f, ejectPower), (casingExitLocation.position - casingExitLocation.right * 0.3f - casingExitLocation.up * 0.6f), 1f);
-
-        tempCasing.GetComponent<Rigidbody>().AddTorque(new Vector3(0, Random.Range(100f, 500f), Random.Range(100f, 1000f)), ForceMode.Impulse);
-
-        // Уничтожить кожух через X секунд
-        Destroy(tempCasing, destroyTimer);
     }
 }
