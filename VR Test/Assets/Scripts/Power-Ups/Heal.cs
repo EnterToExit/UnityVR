@@ -7,13 +7,11 @@ public class Heal : MonoBehaviour
 {
     [SerializeField] private float healAmount;
     private Health _health;
-    private GameObject _playerDeathController;
     private XRGrabInteractable _grabInteractable;
 
     private void Awake()
     {
-        _playerDeathController = GameObject.Find("PlayerDeathController");
-        _health = _playerDeathController.GetComponent<Health>();
+        _health = GameObject.Find("PlayerDeathController").GetComponent<Health>();
         _grabInteractable = GetComponent<XRGrabInteractable>();
     }
 
