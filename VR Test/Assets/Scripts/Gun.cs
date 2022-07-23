@@ -87,7 +87,8 @@ public class Gun : MonoBehaviour
             currentammo--;
             if (currentammo == 0)
             {
-                currentammo = maxammo;
+                source.PlayOneShot(reload);
+                currentammo = maxammo; 
             }
             yield return new WaitForSeconds(0.3f);
         }
