@@ -1,30 +1,30 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
 using TMPro;
 
 [RequireComponent(typeof(XRGrabInteractable))]
 public class New : MonoBehaviour
 {
-    public float damage = 21f;
-    public float fireRate = 1f;
-    public float force = 155f;
-    public float range = 15f;
+    // public float damage = 21f;
+    // public float fireRate = 1f;
+    // public float force = 155f;
+    // public float range = 150f;
     public GameObject muzzleFlash;
     public Transform bulletSpawn;
     public AudioClip shotClip;
     public AudioClip reloadClip;
     public AudioSource _audioSource;
-
     public int maxammo = 40;
     public int currentammo;
-
     private XRGrabInteractable _grabInteractable;
 
-    [SerializeField]
-    public TextMeshPro ammoText;
+    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private Transform _barrelLocation;
+    private float _shotPower = 500f;
+
+
+    [SerializeField] public TextMeshPro ammoText;
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class New : MonoBehaviour
             return;
 
         _grabInteractable.activated.AddListener(GunActivated);
-        _grabInteractable.deactivated.AddListener(GunDectivated);
+        _grabInteractable.deactivated.AddListener(GunDeactivated);
     }
 
     private void OnDisable()
@@ -46,66 +46,66 @@ public class New : MonoBehaviour
             return;
 
         _grabInteractable.activated.RemoveListener(GunActivated);
-        _grabInteractable.deactivated.RemoveListener(GunDectivated);
+        _grabInteractable.deactivated.RemoveListener(GunDeactivated);
     }
 
     private void GunActivated(ActivateEventArgs activateEventArgs)
     {
-        Debug.Log("Start shoot");
-        StartCoroutine(AutoShoot()); 
+        StartCoroutine(AutoShoot());
     }
 
     private IEnumerator AutoShoot()
     {
         while (true)
         {
-            if (currentammo > 0)
+            if (currentammo <= 0) continue;
+            Shoot();
+            currentammo--;
+            yield return new WaitForSeconds(0.3f);
+            if (currentammo == 0)
             {
-                Shoot();
-                yield return new WaitForSeconds(0.3f);
-                currentammo--;
-                if (currentammo == 0)
-                {
-                    yield return new WaitForSeconds(0.1f);
-                    _audioSource.PlayOneShot(reloadClip);
-                    
-                    currentammo = maxammo;
-                }
+                yield return new WaitForSeconds(0.1f);
+                _audioSource.PlayOneShot(reloadClip);
+
+                currentammo = maxammo;
             }
         }
     }
-    
-    private void GunDectivated(DeactivateEventArgs activateEventArgs)
-    {
-        Debug.Log("Stop shoot");
-        StopAllCoroutines();
 
+    private void GunDeactivated(DeactivateEventArgs activateEventArgs)
+    {
+        StopAllCoroutines();
     }
 
-    void Shoot()
+    private void Shoot()
     {
         ammoText.text = currentammo.ToString();
         _audioSource.PlayOneShot(shotClip);
         if (muzzleFlash)
         {
-            // Создание эффекта
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             GameObject tempFlash;
             tempFlash = Instantiate(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation);
 
-            // Уничтожение эффекта
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             Destroy(tempFlash, 2f);
         }
-        
-        RaycastHit hit;
 
-        if (Physics.Raycast(bulletSpawn.transform.position, bulletSpawn.transform.forward, out hit, range))
-        {
+        Instantiate(_bulletPrefab, _barrelLocation.position, _barrelLocation.rotation).GetComponent<Rigidbody>()
+            .AddForce(_barrelLocation.forward * _shotPower);
 
-            if (hit.collider.gameObject.TryGetComponent<Health>(out var hp))
-            {
-                hp.TakeDamage(damage);
-            }
-            
-        }
+        // RaycastHit hit;
+        // if (Physics.Raycast(bulletSpawn.transform.position, bulletSpawn.transform.forward, out hit, range))
+        // {
+        //     Debug.Log("Raycast");
+        //     if (hit.collider.gameObject. == "Cube")
+        //         Debug.Log("huibox");
+        //
+        //     if (hit.collider.gameObject.TryGetComponent<Health>(out var health))
+        //     {
+        //         Debug.Log("eblan");
+        //         health.TakeDamage(damage);
+        //     }
+        // }
     }
 }
