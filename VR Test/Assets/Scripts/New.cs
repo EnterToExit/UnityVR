@@ -21,7 +21,7 @@ public class New : MonoBehaviour
 
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private Transform _barrelLocation;
-    private float _shotPower = 500f;
+    private float _shotPower = 2000f;
 
 
     [SerializeField] public TextMeshPro ammoText;
