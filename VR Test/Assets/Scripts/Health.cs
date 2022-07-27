@@ -7,6 +7,15 @@ public class Health : MonoBehaviour
     [SerializeField] private float _maxHealth;
     private float _currentHealth;
     [NonSerialized] public float damageMultiplier = 1;
+    private PlayerSFXController _playerSFXController;
+
+    private void Awake()
+    {
+        if (gameObject.tag == "PlayerDeathController")
+        {
+            _playerSFXController = GameObject.FindWithTag("Player").GetComponent<PlayerSFXController>();
+        }
+    }
 
     private void Start()
     {
@@ -16,6 +25,10 @@ public class Health : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _currentHealth -= damage * damageMultiplier;
+        if (gameObject.tag == "PlayerDeathController" && _currentHealth > 0)
+        {
+            _playerSFXController.TakeDamageSound();
+        }
         Changed?.Invoke(_currentHealth);
     }
 
