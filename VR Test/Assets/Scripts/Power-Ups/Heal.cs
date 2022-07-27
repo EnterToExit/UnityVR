@@ -8,11 +8,13 @@ public class Heal : MonoBehaviour
     [SerializeField] private float healAmount;
     private Health _health;
     private XRGrabInteractable _grabInteractable;
+    private PlayerSFXController _playerSFXController;
 
     private void Awake()
     {
-        _health = GameObject.Find("PlayerDeathController").GetComponent<Health>();
+        _health = GameObject.FindWithTag("PlayerDeathController").GetComponent<Health>();
         _grabInteractable = GetComponent<XRGrabInteractable>();
+        _playerSFXController = GameObject.FindWithTag("Player").GetComponent<PlayerSFXController>();
     }
 
     private void OnEnable()
@@ -23,7 +25,11 @@ public class Heal : MonoBehaviour
 
     private void Consume(SelectEnterEventArgs selectEnterEventArgs)
     {
+        // Prevents effect duplication by grabbing with 2 hands simultaneously
+        _grabInteractable.selectEntered.RemoveListener(Consume);
+
         _health.Heal(healAmount);
+        _playerSFXController.HealSound();
         Destroy(gameObject);
     }
 }

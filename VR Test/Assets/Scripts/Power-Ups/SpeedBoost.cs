@@ -5,15 +5,19 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class SpeedBoost : MonoBehaviour
 {
-    [SerializeField] private float speedMultiplier;
     [SerializeField] private float duration;
+    [SerializeField] private float speedMultiplier;
     private ActionBasedContinuousMoveProvider _moveProvider;
     private XRGrabInteractable _grabInteractable;
+    private Rigidbody _rigidbody;
+    private PlayerSFXController _playerSFXController;
 
     private void Awake()
     {
-        _moveProvider = GameObject.Find("Locomotion System").GetComponent<ActionBasedContinuousMoveProvider>();
+        _moveProvider = GameObject.FindWithTag("Locomotion System").GetComponent<ActionBasedContinuousMoveProvider>();
         _grabInteractable = GetComponent<XRGrabInteractable>();
+        _rigidbody = GetComponent<Rigidbody>();
+        _playerSFXController = GameObject.FindWithTag("Player").GetComponent<PlayerSFXController>();
     }
 
     private void OnEnable()
@@ -24,10 +28,15 @@ public class SpeedBoost : MonoBehaviour
 
     private void Boost(SelectEnterEventArgs selectEnterEventArgs)
     {
-        _moveProvider.moveSpeed *= speedMultiplier;
+        // Prevents effect duplication by grabbing with 2 hands simultaneously
+        _grabInteractable.selectEntered.RemoveListener(Boost);
 
-        // Makes the object invisible so that it appears consumed
+        _moveProvider.moveSpeed *= speedMultiplier;
+        _playerSFXController.SpeedBoostSound();
+
+        // Disables physics and makes the object invisible so that it appears consumed
         gameObject.transform.localScale = new Vector3(0, 0, 0);
+        _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
 
         Invoke("RemoveBoost", duration);
     }
@@ -35,6 +44,7 @@ public class SpeedBoost : MonoBehaviour
     private void RemoveBoost()
     {
         _moveProvider.moveSpeed /= speedMultiplier;
+        _playerSFXController.SpeedBoostRemovedSound();
         Destroy(gameObject);
     }
 }

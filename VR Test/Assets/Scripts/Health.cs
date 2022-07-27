@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
     public event Action<float> Changed;
     [SerializeField] private float _maxHealth;
     private float _currentHealth;
-    public float damageMultiplier = 1;
+    [NonSerialized] public float damageMultiplier = 1;
 
     private void Start()
     {

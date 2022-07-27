@@ -6,14 +6,18 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class DamageReduction : MonoBehaviour
 {
     [SerializeField] private float duration;
-    [SerializeField] private float _damageMultiplier;
+    [SerializeField] private float damageMultiplier;
     private Health _health;
     private XRGrabInteractable _grabInteractable;
+    private Rigidbody _rigidbody;
+    private PlayerSFXController _playerSFXController;
 
     private void Awake()
     {
-        _health = GameObject.Find("PlayerDeathController").GetComponent<Health>();
+        _health = GameObject.FindWithTag("PlayerDeathController").GetComponent<Health>();
         _grabInteractable = GetComponent<XRGrabInteractable>();
+        _rigidbody = GetComponent<Rigidbody>();
+        _playerSFXController = GameObject.FindWithTag("Player").GetComponent<PlayerSFXController>();
     }
 
     private void OnEnable()
@@ -24,17 +28,23 @@ public class DamageReduction : MonoBehaviour
 
     private void ReduceDamage(SelectEnterEventArgs selectEnterEventArgs)
     {
-        _health.damageMultiplier *= _damageMultiplier;
+        // Prevents effect duplication by grabbing with 2 hands simultaneously
+        _grabInteractable.selectEntered.RemoveListener(ReduceDamage);
 
-        // Makes the object invisible so that it appears consumed
+        _health.damageMultiplier *= damageMultiplier;
+        _playerSFXController.DamageReductionSound();
+
+        // Disables physics and makes the object invisible so that it appears consumed
         gameObject.transform.localScale = new Vector3(0, 0, 0);
+        _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
 
         Invoke("RemoveReduction", duration);
     }
 
     private void RemoveReduction()
     {
-        _health.damageMultiplier /= _damageMultiplier;
+        _health.damageMultiplier /= damageMultiplier;
+        _playerSFXController.DamageReductionRemovedSound();
         Destroy(gameObject);
     }
 }
