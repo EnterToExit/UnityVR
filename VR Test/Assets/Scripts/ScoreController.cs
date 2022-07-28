@@ -4,6 +4,8 @@ using UnityEngine;
 public class ScoreController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private TextMeshProUGUI _textWinMenu;
+    [SerializeField] private TextMeshProUGUI _textGameOverMenu;
 
     private int _currentScore;
 
@@ -26,5 +28,7 @@ public class ScoreController : MonoBehaviour
     {
         _currentScore += points;
         _text.text = _currentScore.ToString();
+        _textWinMenu.text = _currentScore.ToString();
+        _textGameOverMenu.text = _currentScore.ToString();
     }
 }

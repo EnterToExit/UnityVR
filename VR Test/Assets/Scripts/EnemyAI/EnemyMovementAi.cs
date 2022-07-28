@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
@@ -13,6 +14,8 @@ public class EnemyMovementAi : MonoBehaviour
     [SerializeField] private bool _attacking;
     private Transform _player;
     private Vector3 _walkPoint;
+    private float _velocity;
+    private int _idleTime;
     private bool _alreadyAttacked;
     private bool _walkPointSet;
 
@@ -20,6 +23,7 @@ public class EnemyMovementAi : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         _player = GameObject.Find(_agentTarget).transform;
+        StartCoroutine(IdleChecker());
     }
 
     private void FixedUpdate()
@@ -29,11 +33,31 @@ public class EnemyMovementAi : MonoBehaviour
         var distance = Vector3.Distance(agentPosition, playerPosition);
         var inSight = Vector3.SignedAngle(playerPosition - agentPosition,
             transform.forward, new Vector3(0, 0, 1)) < 90f;
+        if (_idleTime == 3)
+        {
+            SearchWalkPoint();
+            _idleTime = 0;
+        }
         if (distance > _sightRange && distance > _requiredRange) Patroling();
         if (distance < _sightRange && distance > _requiredRange && inSight) ChasePlayer();
         if (distance < _sightRange && distance < _requiredRange)
         {
             _agent.SetDestination(agentPosition);
+        }
+    }
+
+    private IEnumerator IdleChecker()
+    {
+        while (true)
+        {
+            var prevPos = transform.position;
+            yield return new WaitForEndOfFrame();
+            _velocity = (Vector3.Distance(transform.position, prevPos) / Time.deltaTime) / 10;
+            if (_velocity == 0)
+            {
+                _idleTime += 1;
+                yield return new WaitForSeconds(1f);
+            }
         }
     }
 

@@ -21,7 +21,7 @@ public class New : MonoBehaviour
 
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private Transform _barrelLocation;
-    private float _shotPower = 2000f;
+    private float _shotPower = 10f;
 
 
     [SerializeField] public TextMeshPro ammoText;
@@ -92,7 +92,7 @@ public class New : MonoBehaviour
         }
 
         Instantiate(_bulletPrefab, _barrelLocation.position, _barrelLocation.rotation).GetComponent<Rigidbody>()
-            .AddForce(_barrelLocation.forward * _shotPower);
+            .AddForce(_barrelLocation.forward * _shotPower, ForceMode.Impulse);
 
         // RaycastHit hit;
         // if (Physics.Raycast(bulletSpawn.transform.position, bulletSpawn.transform.forward, out hit, range))

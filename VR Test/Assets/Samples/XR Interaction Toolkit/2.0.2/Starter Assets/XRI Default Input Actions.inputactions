@@ -390,28 +390,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "left",
-                    "id": "e0dd3431-14bb-4817-ac71-ed700d5af1ca",
-                    "path": "<XRController>{LeftHand}/Primary2DAxis/x",
-                    "interactions": "",
-                    "processors": "Clamp(min=-1),Invert",
-                    "groups": "Generic XR Controller",
-                    "action": "Rotate Anchor",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "0064f189-a00e-4cf8-9f53-be76a30cb97f",
-                    "path": "<XRController>{LeftHand}/Primary2DAxis/x",
-                    "interactions": "",
-                    "processors": "Clamp(max=1)",
-                    "groups": "Generic XR Controller",
-                    "action": "Rotate Anchor",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "2D Vector",
                     "id": "44d142b3-f6ac-4d08-8bd1-fac53cf9bb9e",
                     "path": "2DVector(mode=2)",
@@ -421,28 +399,6 @@
                     "action": "Translate Anchor",
                     "isComposite": true,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "b1dbcb6a-408c-413c-b2d1-7a10fe418324",
-                    "path": "<XRController>{LeftHand}/Primary2DAxis/y",
-                    "interactions": "",
-                    "processors": "Clamp(max=1)",
-                    "groups": "Generic XR Controller",
-                    "action": "Translate Anchor",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "0e38a62a-8bee-4853-b87a-1af460e3ec33",
-                    "path": "<XRController>{LeftHand}/Primary2DAxis/y",
-                    "interactions": "",
-                    "processors": "Clamp(min=-1),Invert",
-                    "groups": "Generic XR Controller",
-                    "action": "Translate Anchor",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "left",
@@ -470,6 +426,72 @@
                     "name": "",
                     "id": "272264e3-14c0-4462-975b-c760c3b148cd",
                     "path": "<XRController>{LeftHand}/menuButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7be66a87-6516-423f-bb88-779d9e900106",
+                    "path": "<XRController>{LeftHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "06e27252-ea99-4da0-8062-12c8eaf257e0",
+                    "path": "<XRController>{LeftHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5e786257-2748-44c0-bf0b-7447cff1c6f2",
+                    "path": "<XRController>{LeftHand}/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8ad6a1e3-113b-46b4-a02e-5ccfe0cd4bee",
+                    "path": "<XRController>{LeftHand}/menu",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6b81aea8-070d-41bc-830f-7c0e8633dcf1",
+                    "path": "<XRController>{LeftHand}/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8ffab15e-ac1a-4cfb-9170-c6b1f959cb59",
+                    "path": "<XRController>{LeftHand}/system",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -919,28 +941,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "left",
-                    "id": "76425f70-54b8-4f8e-ad52-94debc75962c",
-                    "path": "<XRController>{RightHand}/Primary2DAxis/x",
-                    "interactions": "",
-                    "processors": "Clamp(min=-1),Invert",
-                    "groups": "Generic XR Controller",
-                    "action": "Rotate Anchor",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "8df952de-cf29-4b5e-9a90-a6b4eee7f52c",
-                    "path": "<XRController>{RightHand}/Primary2DAxis/x",
-                    "interactions": "",
-                    "processors": "Clamp(max=1)",
-                    "groups": "Generic XR Controller",
-                    "action": "Rotate Anchor",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "2D Vector",
                     "id": "a4b1434f-f204-49c4-bcea-c25e321e93eb",
                     "path": "2DVector(mode=2)",
@@ -950,28 +950,6 @@
                     "action": "Translate Anchor",
                     "isComposite": true,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "4ced8328-f738-4bbd-937a-c09019acd234",
-                    "path": "<XRController>{RightHand}/Primary2DAxis/y",
-                    "interactions": "",
-                    "processors": "Clamp(max=1)",
-                    "groups": "Generic XR Controller",
-                    "action": "Translate Anchor",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "f7e89e7c-f5a9-4f42-914f-945815a49033",
-                    "path": "<XRController>{RightHand}/Primary2DAxis/y",
-                    "interactions": "",
-                    "processors": "Clamp(min=-1),Invert",
-                    "groups": "Generic XR Controller",
-                    "action": "Translate Anchor",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "left",

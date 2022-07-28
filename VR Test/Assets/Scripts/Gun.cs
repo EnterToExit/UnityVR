@@ -26,8 +26,7 @@ public class Gun : MonoBehaviour
     [Header("Settings")] [Tooltip("Specify time to destory the casing object")] [SerializeField]
     private float destroyTimer = 2f;
 
-    [Tooltip("Bullet Speed")] [SerializeField]
-    private float shotPower = 2000f;
+    private float shotPower = 10f;
 
     [Tooltip("Casing Ejection Speed")] [SerializeField]
     private float ejectPower = 150f;
@@ -125,7 +124,7 @@ public class Gun : MonoBehaviour
             gunAnimator = GetComponentInChildren<Animator>();
 
         Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>()
-            .AddForce(barrelLocation.forward * shotPower);
+            .AddForce(barrelLocation.forward * shotPower, ForceMode.Impulse);
         if (muzzleFlashPrefab)
         {
             // �������� �������
